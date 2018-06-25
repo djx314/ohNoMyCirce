@@ -56,8 +56,8 @@ Error
 [error] Implicit Type: io.circe.Encoder[java.util.Calendar]
 [error]   ohNoMyCirce.encoder[Wrap]
 [error]                      ^
-[error] Test.scala:19:8: could not find implicit value for parameter encoder: io.circe.E
-ncoder[net.scalax.ohNoMyCirce.test.Test.Wrap]
+[error] Test.scala:19:8: could not find implicit value for parameter encoder:
+io.circe.Encoder[net.scalax.ohNoMyCirce.test.Test.Wrap]
 [error]   wrap.asJson
 [error]        ^
 [error] two errors found
@@ -80,8 +80,8 @@ Error
 [error] Implicit Type: io.circe.Encoder[net.scalax.ohNoMyCirce.test.Test.Model]
 [error]   ohNoMyCirce.encoder[Wrap]
 [error]                      ^
-[error] Test.scala:19:8: could not find implicit value for parameter encoder: io.circe.E
-ncoder[net.scalax.ohNoMyCirce.test.Test.Wrap]
+[error] Test.scala:19:8: could not find implicit value for parameter encoder:
+io.circe.Encoder[net.scalax.ohNoMyCirce.test.Test.Wrap]
 [error]   wrap.asJson
 [error]        ^
 [error] two errors found
@@ -104,8 +104,8 @@ Error
 [error] Implicit Type: io.circe.Encoder[java.util.Date]
 [error]   ohNoMyCirce.encoder[Model] //type parameter changed
 [error]                      ^
-[error] Test.scala:19:8: could not find implicit value for parameter encoder: io.circe.E
-ncoder[net.scalax.ohNoMyCirce.test.Test.Wrap]
+[error] Test.scala:19:8: could not find implicit value for parameter encoder:
+io.circe.Encoder[net.scalax.ohNoMyCirce.test.Test.Wrap]
 [error]   wrap.asJson
 [error]        ^
 [error] two errors found
@@ -127,3 +127,5 @@ Oh, yes.
 
 By changing `ohNoMyCirce.encoder` to `ohNoMyCirce.decoder`,
 you can debug `io.circe.Decoder` similarly.
+
+The final version of the code above is [here](https://github.com/djx314/ohNoMyCirce/blob/master/src/test/scala/net/scalax/ohNoMyCirce/test/Test.scala).
