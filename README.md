@@ -24,7 +24,7 @@ object Test {
 }
 ```
 
-Then insert the code to the place of comment.
+Then insert the code to the place of the comment.
 
 ```scala
 val wrap: Wrap = ???
@@ -33,8 +33,8 @@ wrap.asJson
 
 Oh, no!
 ```scala
-[error]Test.scala:19:8: could not find implicit value for parameter encoder: io.circe.E
-ncoder[net.scalax.ohNoMyCirce.test.Test.Wrap]
+[error]Test.scala:19:8: could not find implicit value for parameter encoder:
+io.circe.Encoder[net.scalax.ohNoMyCirce.test.Test.Wrap]
 [error]   wrap.asJson
 [error]        ^
 [error] one error found
@@ -47,7 +47,7 @@ ohNoMyCirce.encoder[Wrap]
 wrap.asJson
 ```
 
-Error
+Error messages:
 ```scala
 [error] Test.scala:18:22: Can not find implicit value for Circe.
 [error] Case class Name: net.scalax.ohNoMyCirce.test.Test.Wrap
@@ -63,7 +63,7 @@ io.circe.Encoder[net.scalax.ohNoMyCirce.test.Test.Wrap]
 [error] two errors found
 ```
 
-Next
+Next:
 ```scala
 val wrap: Wrap = ???
 implicit def i1: Encoder[Calendar] = ???
@@ -71,7 +71,7 @@ ohNoMyCirce.encoder[Wrap]
 wrap.asJson
 ```
 
-Error
+Error messages:
 ```scala
 [error] Test.scala:18:22: Can not find implicit value for Circe.
 [error] Case class Name: net.scalax.ohNoMyCirce.test.Test.Wrap
@@ -87,7 +87,7 @@ io.circe.Encoder[net.scalax.ohNoMyCirce.test.Test.Wrap]
 [error] two errors found
 ```
 
-Next
+Next:
 ```scala
 val wrap: Wrap = ???
 implicit def i1: Encoder[Calendar] = ???
@@ -95,7 +95,7 @@ ohNoMyCirce.encoder[Model] //type parameter changed
 wrap.asJson
 ```
 
-Error
+Error messages:
 ```scala
 [error] Test.scala:18:22: Can not find implicit value for Circe.
 [error] Case class Name: net.scalax.ohNoMyCirce.test.Test.Model
@@ -111,7 +111,7 @@ io.circe.Encoder[net.scalax.ohNoMyCirce.test.Test.Wrap]
 [error] two errors found
 ```
 
-Next
+Next:
 ```scala
 val wrap: Wrap = ???
 implicit def i1: Encoder[Calendar] = ???
