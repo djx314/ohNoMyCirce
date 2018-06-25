@@ -25,13 +25,12 @@ object OhNoMyCirceMacros {
       def propertyConfirm(proName: String) = {
         val helperTrait1 = c.freshName(proName)
         val helperDef2 = c.freshName(proName)
-        val helperDef3 = c.freshName(proName)
         q"""
           @_root_.scala.annotation.implicitNotFound(msg = ${Literal(Constant(s"Can not find implicit value for Circe.\nCase Class Name: $${Model}\nProperty Type: $${Pro}\nProperty Name: ${proName}\nImplicit Type: $${WrapPro}"))})
           trait ${TypeName(helperTrait1)}[Model, Pro, WrapPro]
 
           object ${TermName(helperTrait1)} {
-            implicit def ${TermName(helperDef3)}[Model, Pro, WrapPro](implicit i: WrapPro): ${TypeName(helperTrait1)}[Model, Pro, WrapPro] = new ${TypeName(helperTrait1)}[Model, Pro, WrapPro] {}
+            implicit def ${TermName(c.freshName(proName))}[Model, Pro, WrapPro](implicit i: WrapPro): ${TypeName(helperTrait1)}[Model, Pro, WrapPro] = new ${TypeName(helperTrait1)}[Model, Pro, WrapPro] {}
           }
           def ${TermName(helperDef2)}[S, T](p: _root_.net.scalax.ohNoMyCirce.macros.OhNoMyCirceMacros.PropertyType[T]): _root_.net.scalax.ohNoMyCirce.macros.OhNoMyCirceMacros.CirceImplicit[${TypeName(helperTrait1)}[${weakTypeOf[Case].typeSymbol}, T, ${weakTypeOf[R[_]].typeSymbol}[T]]] =
             new  _root_.net.scalax.ohNoMyCirce.macros.OhNoMyCirceMacros.CirceImplicit[${TypeName(helperTrait1)}[${weakTypeOf[Case].typeSymbol}, T, ${weakTypeOf[R[_]].typeSymbol}[T]]] {}
