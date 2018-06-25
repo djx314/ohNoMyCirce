@@ -3,6 +3,18 @@ ohNoMyCirce
 
 Oh, no! My circe can not compile failure.
 
+How to get it
+-------------
+
+- Add dependency
+
+```scala
+resolvers += Resolver.bintrayRepo("djx314", "maven")
+libraryDependencies += "net.scalax" %% "ohNoMyCirce" % "0.0.1"
+```
+
+- Use it
+
 First import the Circe environment and create the data model.
 
 ```scala
