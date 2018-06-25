@@ -21,29 +21,32 @@ object OhNoMyCirceMacros {
 
     def impl[Case: c.WeakTypeTag, R[_]](implicit rImplicit: c.WeakTypeTag[R[_]]): c.Expr[Unit] = {
       val weakType = weakTypeOf[Case]
-      val mg = q"""val mg: _root_.net.scalax.ohNoMyCirce.macros.OhNoMyCirceMacros.ModelGen[${weakType.typeSymbol}] = new _root_.net.scalax.ohNoMyCirce.macros.OhNoMyCirceMacros.ModelGen[${weakType.typeSymbol}] {}"""
+      val mg = q"""def mg: _root_.net.scalax.ohNoMyCirce.macros.OhNoMyCirceMacros.ModelGen[${weakType.typeSymbol}] = new _root_.net.scalax.ohNoMyCirce.macros.OhNoMyCirceMacros.ModelGen[${weakType.typeSymbol}] {}"""
       def propertyConfirm(proName: String) = {
         val helperTrait1 = c.freshName(proName)
         val helperDef2 = c.freshName(proName)
+        val helperDef3 = c.freshName(proName)
         q"""
-           @_root_.scala.annotation.implicitNotFound(msg = ${Literal(Constant(s"Can not find implicit value for Circe.\nCase class Name: $${Model}\nProperty Type: $${Pro}\nProperty Name: ${proName}\nImplicit Type: $${WrapPro}"))})
-           trait ${TypeName(helperTrait1)}[Model, Pro, WrapPro]
-           object ${TermName(helperTrait1)} {
-             implicit def wrapImplicit[Model, Pro, WrapPro](implicit i: WrapPro): ${TypeName(helperTrait1)}[Model, Pro, WrapPro] = new ${TypeName(helperTrait1)}[Model, Pro, WrapPro] {}
-           }
-           def ${TermName(helperDef2)}[S, T](p: _root_.net.scalax.ohNoMyCirce.macros.OhNoMyCirceMacros.PropertyType[T]): _root_.net.scalax.ohNoMyCirce.macros.OhNoMyCirceMacros.CirceImplicit[${TypeName(helperTrait1)}[${weakTypeOf[Case].typeSymbol}, T, ${weakTypeOf[R[_]].typeSymbol}[T]]] =
-             new  _root_.net.scalax.ohNoMyCirce.macros.OhNoMyCirceMacros.CirceImplicit[${TypeName(helperTrait1)}[${weakTypeOf[Case].typeSymbol}, T, ${weakTypeOf[R[_]].typeSymbol}[T]]] {}
+          @_root_.scala.annotation.implicitNotFound(msg = ${Literal(Constant(s"Can not find implicit value for Circe.\nCase class Name: $${Model}\nProperty Type: $${Pro}\nProperty Name: ${proName}\nImplicit Type: $${WrapPro}"))})
+          trait ${TypeName(helperTrait1)}[Model, Pro, WrapPro]
 
-           def ${TermName(c.freshName(proName))} = ${TermName(helperDef2)}(mg(s => s.${TermName(proName)})).confirm
+          object ${TermName(helperTrait1)} {
+            implicit def ${TermName(helperDef3)}[Model, Pro, WrapPro](implicit i: WrapPro): ${TypeName(helperTrait1)}[Model, Pro, WrapPro] = new ${TypeName(helperTrait1)}[Model, Pro, WrapPro] {}
+          }
+          def ${TermName(helperDef2)}[S, T](p: _root_.net.scalax.ohNoMyCirce.macros.OhNoMyCirceMacros.PropertyType[T]): _root_.net.scalax.ohNoMyCirce.macros.OhNoMyCirceMacros.CirceImplicit[${TypeName(helperTrait1)}[${weakTypeOf[Case].typeSymbol}, T, ${weakTypeOf[R[_]].typeSymbol}[T]]] =
+            new  _root_.net.scalax.ohNoMyCirce.macros.OhNoMyCirceMacros.CirceImplicit[${TypeName(helperTrait1)}[${weakTypeOf[Case].typeSymbol}, T, ${weakTypeOf[R[_]].typeSymbol}[T]]] {}
+
+          def ${TermName(c.freshName(proName))} = ${TermName(helperDef2)}(mg(s => s.${TermName(proName)})).confirm
          """
       }
 
-      c.Expr[Unit](
+      val q = c.Expr[Unit](
         q"""{
             ${mg}
            ..${weakType.members.filter(_.asTerm.isCaseAccessor).map(s => propertyConfirm(s.name.toString.trim))}
            (): _root_.scala.Unit
            }""")
+      q
     }
 
   }
