@@ -10,7 +10,7 @@ How to get it
 
 ```scala
 resolvers += Resolver.bintrayRepo("djx314", "maven")
-libraryDependencies += "net.scalax" %% "ohNoMyCirce" % "0.0.1"
+libraryDependencies += "net.scalax" %% "ohnomycirce" % "0.0.1"
 ```
 
 - Use it
