@@ -27,7 +27,7 @@ object OhNoMyCirceMacros {
         val helperDef2 = c.freshName(proName)
         val helperDef3 = c.freshName(proName)
         q"""
-          @_root_.scala.annotation.implicitNotFound(msg = ${Literal(Constant(s"Can not find implicit value for Circe.\nCase class Name: $${Model}\nProperty Type: $${Pro}\nProperty Name: ${proName}\nImplicit Type: $${WrapPro}"))})
+          @_root_.scala.annotation.implicitNotFound(msg = ${Literal(Constant(s"Can not find implicit value for Circe.\nCase Class Name: $${Model}\nProperty Type: $${Pro}\nProperty Name: ${proName}\nImplicit Type: $${WrapPro}"))})
           trait ${TypeName(helperTrait1)}[Model, Pro, WrapPro]
 
           object ${TermName(helperTrait1)} {

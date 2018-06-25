@@ -62,7 +62,7 @@ wrap.asJson
 Error messages:
 ```scala
 [error] Test.scala:18:22: Can not find implicit value for Circe.
-[error] Case class Name: net.scalax.ohNoMyCirce.test.Test.Wrap
+[error] Case Class Name: net.scalax.ohNoMyCirce.test.Test.Wrap
 [error] Property Type: java.util.Calendar
 [error] Property Name: cal
 [error] Implicit Type: io.circe.Encoder[java.util.Calendar]
@@ -86,7 +86,7 @@ wrap.asJson
 Error messages:
 ```scala
 [error] Test.scala:18:22: Can not find implicit value for Circe.
-[error] Case class Name: net.scalax.ohNoMyCirce.test.Test.Wrap
+[error] Case Class Name: net.scalax.ohNoMyCirce.test.Test.Wrap
 [error] Property Type: net.scalax.ohNoMyCirce.test.Test.Model
 [error] Property Name: model
 [error] Implicit Type: io.circe.Encoder[net.scalax.ohNoMyCirce.test.Test.Model]
@@ -110,7 +110,7 @@ wrap.asJson
 Error messages:
 ```scala
 [error] Test.scala:18:22: Can not find implicit value for Circe.
-[error] Case class Name: net.scalax.ohNoMyCirce.test.Test.Model
+[error] Case Class Name: net.scalax.ohNoMyCirce.test.Test.Model
 [error] Property Type: java.util.Date
 [error] Property Name: time
 [error] Implicit Type: io.circe.Encoder[java.util.Date]
