@@ -31,7 +31,7 @@ wrap.asJson
 
 Oh, no!
 ```scala
-[error] Test.scala:19:8: could not find implicit value for parameter encoder:
+[error] TestCirce.scala:19:8: could not find implicit value for parameter encoder:
 io.circe.Encoder[net.scalax.ohNoMyCirce.test.Test.Wrap]
 [error]   wrap.asJson
 [error]        ^
@@ -47,14 +47,14 @@ wrap.asJson
 
 Error messages:
 ```scala
-[error] Test.scala:18:22: Can not find implicit value for Circe.
+[error] TestCirce.scala:18:22: Can not find implicit value for Circe.
 [error] Case Class Name: net.scalax.ohNoMyCirce.test.Test.Wrap
 [error] Property Type: java.util.Calendar
 [error] Property Name: cal
 [error] Implicit Type: io.circe.Encoder[java.util.Calendar]
 [error]   ohNoMyCirce.circeEncoder[Wrap]
 [error]                      ^
-[error] Test.scala:19:8: could not find implicit value for parameter encoder:
+[error] TestCirce.scala:19:8: could not find implicit value for parameter encoder:
 io.circe.Encoder[net.scalax.ohNoMyCirce.test.Test.Wrap]
 [error]   wrap.asJson
 [error]        ^
@@ -71,14 +71,14 @@ wrap.asJson
 
 Error messages:
 ```scala
-[error] Test.scala:18:22: Can not find implicit value for Circe.
+[error] TestCirce.scala:18:22: Can not find implicit value for Circe.
 [error] Case Class Name: net.scalax.ohNoMyCirce.test.Test.Wrap
 [error] Property Type: net.scalax.ohNoMyCirce.test.Test.Model
 [error] Property Name: model
 [error] Implicit Type: io.circe.Encoder[net.scalax.ohNoMyCirce.test.Test.Model]
 [error]   ohNoMyCirce.circeEncoder[Wrap]
 [error]                      ^
-[error] Test.scala:19:8: could not find implicit value for parameter encoder:
+[error] TestCirce.scala:19:8: could not find implicit value for parameter encoder:
 io.circe.Encoder[net.scalax.ohNoMyCirce.test.Test.Wrap]
 [error]   wrap.asJson
 [error]        ^
@@ -95,14 +95,14 @@ wrap.asJson
 
 Error messages:
 ```scala
-[error] Test.scala:18:22: Can not find implicit value for Circe.
+[error] TestCirce.scala:18:22: Can not find implicit value for Circe.
 [error] Case Class Name: net.scalax.ohNoMyCirce.test.Test.Model
 [error] Property Type: java.util.Date
 [error] Property Name: time
 [error] Implicit Type: io.circe.Encoder[java.util.Date]
 [error]   ohNoMyCirce.circeEncoder[Model] //type parameter changed
 [error]                      ^
-[error] Test.scala:19:8: could not find implicit value for parameter encoder:
+[error] TestCirce.scala:19:8: could not find implicit value for parameter encoder:
 io.circe.Encoder[net.scalax.ohNoMyCirce.test.Test.Wrap]
 [error]   wrap.asJson
 [error]        ^
