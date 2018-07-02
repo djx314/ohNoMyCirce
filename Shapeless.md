@@ -159,7 +159,7 @@ ag.OhNoTagged[Int,486] :: shapeless.HNil where type 486 <: AnyRef, type {
 [error] two errors found
 ```
 
-Don't pay attention to second error message, then you can find
+Don't pay attention to second error message. Then you can find
 the error code snippet in the `Code Snippet` message.  
 Fix it.:
 ```scala
