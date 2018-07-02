@@ -45,7 +45,7 @@ wrap.asJson
 
 Oh, no!
 ```scala
-[error]Test.scala:19:8: could not find implicit value for parameter encoder:
+[error] Test.scala:19:8: could not find implicit value for parameter encoder:
 io.circe.Encoder[net.scalax.ohNoMyCirce.test.Test.Wrap]
 [error]   wrap.asJson
 [error]        ^
@@ -55,7 +55,7 @@ io.circe.Encoder[net.scalax.ohNoMyCirce.test.Test.Wrap]
 And then start debugging.
 ```scala
 val wrap: Wrap = ???
-ohNoMyCirce.encoder[Wrap]
+ohNoMyCirce.circeEncoder[Wrap]
 wrap.asJson
 ```
 
@@ -66,7 +66,7 @@ Error messages:
 [error] Property Type: java.util.Calendar
 [error] Property Name: cal
 [error] Implicit Type: io.circe.Encoder[java.util.Calendar]
-[error]   ohNoMyCirce.encoder[Wrap]
+[error]   ohNoMyCirce.circeEncoder[Wrap]
 [error]                      ^
 [error] Test.scala:19:8: could not find implicit value for parameter encoder:
 io.circe.Encoder[net.scalax.ohNoMyCirce.test.Test.Wrap]
@@ -79,7 +79,7 @@ Next:
 ```scala
 val wrap: Wrap = ???
 implicit def i1: Encoder[Calendar] = ???
-ohNoMyCirce.encoder[Wrap]
+ohNoMyCirce.circeEncoder[Wrap]
 wrap.asJson
 ```
 
@@ -90,7 +90,7 @@ Error messages:
 [error] Property Type: net.scalax.ohNoMyCirce.test.Test.Model
 [error] Property Name: model
 [error] Implicit Type: io.circe.Encoder[net.scalax.ohNoMyCirce.test.Test.Model]
-[error]   ohNoMyCirce.encoder[Wrap]
+[error]   ohNoMyCirce.circeEncoder[Wrap]
 [error]                      ^
 [error] Test.scala:19:8: could not find implicit value for parameter encoder:
 io.circe.Encoder[net.scalax.ohNoMyCirce.test.Test.Wrap]
@@ -103,7 +103,7 @@ Next:
 ```scala
 val wrap: Wrap = ???
 implicit def i1: Encoder[Calendar] = ???
-ohNoMyCirce.encoder[Model] //type parameter changed
+ohNoMyCirce.circeEncoder[Model] //type parameter changed
 wrap.asJson
 ```
 
@@ -114,7 +114,7 @@ Error messages:
 [error] Property Type: java.util.Date
 [error] Property Name: time
 [error] Implicit Type: io.circe.Encoder[java.util.Date]
-[error]   ohNoMyCirce.encoder[Model] //type parameter changed
+[error]   ohNoMyCirce.circeEncoder[Model] //type parameter changed
 [error]                      ^
 [error] Test.scala:19:8: could not find implicit value for parameter encoder:
 io.circe.Encoder[net.scalax.ohNoMyCirce.test.Test.Wrap]
@@ -128,7 +128,7 @@ Next:
 val wrap: Wrap = ???
 implicit def i1: Encoder[Calendar] = ???
 implicit def i2: Encoder[Date] = ???
-ohNoMyCirce.encoder[Model] //type parameter changed
+ohNoMyCirce.circeEncoder[Model] //type parameter changed
 wrap.asJson
 ```
 
@@ -137,7 +137,7 @@ Oh, yes.
 [info] Done compiling.
 ```
 
-By changing `ohNoMyCirce.encoder` to `ohNoMyCirce.decoder`,
+By changing `ohNoMyCirce.circeEncoder` to `ohNoMyCirce.decoder`,
 you can debug `io.circe.Decoder` similarly.
 
 The final version of the code above is [here](https://github.com/djx314/ohNoMyCirce/blob/master/src/test/scala/net/scalax/ohNoMyCirce/test/Test.scala).
