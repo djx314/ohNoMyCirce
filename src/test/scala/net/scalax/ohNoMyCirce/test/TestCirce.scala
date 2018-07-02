@@ -6,7 +6,7 @@ import io.circe._
 import io.circe.syntax._
 import io.circe.generic.auto._
 
-object Test {
+object TestCirce {
 
   case class Wrap(id: Long, model: Model, cal: Calendar)
   case class Model(id: Long, name: String, age: Int, describe: String, time: Date)

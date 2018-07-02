@@ -42,7 +42,7 @@ object OhNoMyCirceMacros {
       val q = c.Expr[Unit](
         q"""{
             ${mg}
-           ..${weakType.members.filter(_.asTerm.isCaseAccessor).map(s => propertyConfirm(s.name.toString.trim))}
+           ..${weakType.members.filter(_.asTerm.isCaseAccessor).map(_.name.toString.trim).toList.reverse.distinct.map(propertyConfirm)}
            (): _root_.scala.Unit
            }""")
       q
