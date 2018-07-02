@@ -1,7 +1,7 @@
 Shapeless module
 ============================
 
-First import the shapeless environment and create the data model.
+First import the Shapeless environment and create the data model.
 
 ```scala
 package net.scalax.ohNoMyCirce.test
@@ -48,7 +48,7 @@ val model = 36444L :: "sdfsfsd" :: 343 :: {
   val cc = bb.size
   cc.toLong
 } :: HNil
-ohNoMyCirce.shapelessFrom(model)[Model]
+ohNoMyCirce.shapelessFrom(model)[Model] //Added
 Generic[Model].from(model)
 ```
 
@@ -103,10 +103,11 @@ Error messages:
 [error] two errors found
 ```
 
-Emmmm, This error message has been very detailed, but
+Emmmm, this error message has been very detailed, but
 I can not quickly determine if the wrong location is
 `343` or `486` or the block.  
-Add a mark of a code snippet.
+  
+Add marks of these code snippets.
 ```scala
 val model = 36444L :: "sdfsfsd" :: ohNoMyCirce.shapelessSnippet(343) :: ohNoMyCirce.shapelessSnippet {
   def testStr = "I am test string."
@@ -159,7 +160,7 @@ ag.OhNoTagged[Int,486] :: shapeless.HNil where type 486 <: AnyRef, type {
 ```
 
 Don't pay attention to second error message, then you can find
-the error code snippet is the block.  
+the error code snippet in the `Code Snippet` message.  
 Fix it.:
 ```scala
 val model = 36444L :: "sdfsfsd" :: ohNoMyCirce.shapelessSnippet(343) :: ohNoMyCirce.shapelessSnippet {
@@ -177,6 +178,7 @@ Oh, yes.
 [info] Done compiling.
 ```
 
-Remove the test code that has just been added and have fun.
+Remove the test code that has just been added.  
+Have fun!
 
 The final version of the code above is [here](https://github.com/djx314/ohNoMyCirce/blob/master/src/test/scala/net/scalax/ohNoMyCirce/test/TestShapeless.scala).
