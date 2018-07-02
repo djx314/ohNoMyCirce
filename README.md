@@ -15,5 +15,5 @@ libraryDependencies += "net.scalax" %% "ohnomycirce" % "0.0.2"
 
 #### Use it
 
-- [Circe module](../Circe.md)
+- [Circe module](./Circe.md)
 -
