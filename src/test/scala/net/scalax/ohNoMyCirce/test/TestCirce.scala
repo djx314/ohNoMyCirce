@@ -15,14 +15,14 @@ object TestCirce {
 
   implicit def i1: Encoder[Calendar] = ???
   implicit def i2: Encoder[Date] = ???
-  ohNoMyCirce.encoder[Model] //type parameter changed
+  ohNoMyCirce.circeEncoder[Model] //type parameter changed
   wrap.asJson
 
   val json: Json = ???
 
   implicit def i3: Decoder[Calendar] = ???
   implicit def i4: Decoder[Date] = ???
-  ohNoMyCirce.decoder[Model]
+  ohNoMyCirce.circeDecoder[Model]
   json.as[Wrap]
 
 }
