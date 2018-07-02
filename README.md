@@ -140,6 +140,6 @@ Oh, yes.
 By changing `ohNoMyCirce.circeEncoder` to `ohNoMyCirce.decoder`,
 you can debug `io.circe.Decoder` similarly.
 
-The final version of the code above is [here](https://github.com/djx314/ohNoMyCirce/blob/master/src/test/scala/net/scalax/ohNoMyCirce/test/Test.scala).
+The final version of the code above is [here](https://github.com/djx314/ohNoMyCirce/blob/master/src/test/scala/net/scalax/ohNoMyCirce/test/TestCirce.scala).
 
 These `ohNoMyCirce` macro only generate many type definitions. At runtime, it does nothing except return a `Unit` result. But it's best to remove it after finishing debugging.
