@@ -103,7 +103,7 @@ Error messages:
 [error] two errors found
 ```
 
-Emmmm, this error message has been very detailed, but
+Emmm, this error message has been very detailed, but
 I can not quickly determine if the wrong location is
 `343` or `486` or the block.  
   
@@ -159,7 +159,7 @@ ag.OhNoTagged[Int,486] :: shapeless.HNil where type 486 <: AnyRef, type {
 [error] two errors found
 ```
 
-Don't pay attention to second error message. Then you can find
+Don't pay attention to the second error message. Then you can find
 the error code snippet in the `Code Snippet` message.  
 Fix it:
 ```scala
