@@ -161,7 +161,7 @@ ag.OhNoTagged[Int,486] :: shapeless.HNil where type 486 <: AnyRef, type {
 
 Don't pay attention to second error message. Then you can find
 the error code snippet in the `Code Snippet` message.  
-Fix it.:
+Fix it:
 ```scala
 val model = 36444L :: "sdfsfsd" :: ohNoMyCirce.shapelessSnippet(343) :: ohNoMyCirce.shapelessSnippet {
   def testStr = "I am test string."
