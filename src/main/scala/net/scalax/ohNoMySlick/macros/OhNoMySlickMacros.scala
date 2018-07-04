@@ -1,9 +1,11 @@
-package net.scalax.ohNoMyShapeless.macros
+package net.scalax.ohNoMySlick.macros
+
+import slick.lifted._
 
 import scala.reflect.macros.blackbox.Context
 import scala.language.higherKinds
 
-object OhNoMyShapelessMacros {
+object OhNoMySlickMacros {
 
   trait PropertyType[Pro]
 
@@ -20,9 +22,13 @@ object OhNoMyShapelessMacros {
     trait OhNoTagged[BaseType, TagType]
     type Aux[BaseType, TagType] = BaseType with OhNoTagged[BaseType, TagType]
 
+    trait TagApply[Rep] {
+      def withImplicit[R, U](implicit shape: Shape[_ <: FlatShapeLevel, Rep, R, U]): MappedProjection[R Aux U, R]
+    }
+
     def apply[U] = new OhNoTagger[U]
     class OhNoTagger[U] {
-      def apply[T](t: T): T Aux U = t.asInstanceOf[T Aux U]
+      def apply[X, R, F](t: X)(implicit shape: Shape[_ <: FlatShapeLevel, X, R, F]): MappedProjection[R Aux U, R] = ShapedValue(t, shape).<>(t => t.asInstanceOf[R Aux U], (_: R Aux U) => Option.empty[R])
     }
 
     trait TagImplicit {
@@ -54,28 +60,28 @@ object OhNoMyShapelessMacros {
 
   }
 
-  class ShapelessSnippetImpl(val c: scala.reflect.macros.whitebox.Context) {
+  class SlickSnippetImpl(val c: scala.reflect.macros.whitebox.Context) {
 
     import c.universe._
 
-    def impl[T: c.WeakTypeTag](t: c.Expr[T]) = {
+    def impl[H: c.WeakTypeTag, Data, O](t: c.Expr[H])(shape: c.Expr[Shape[_ <: FlatShapeLevel, H, Data, O]]) = {
       c.Expr(q"""
         trait ${TypeName(t.tree.toString)}
-        _root_.net.scalax.ohNoMyShapeless.macros.OhNoMyShapelessMacros.tag[${TypeName(t.tree.toString)}]($t)
+        _root_.net.scalax.ohNoMySlick.macros.OhNoMySlickMacros.tag[${TypeName(t.tree.toString)}]($t)($shape)
       """)
     }
 
   }
 
-  class OhNoMyShapelessMacrosImpl(val c: Context) {
+  class OhNoMySlickMacrosImpl(val c: Context) {
 
     import c.universe._
 
-    def impl[Case: c.WeakTypeTag, H: c.WeakTypeTag](hlist: c.Expr[H]): c.Expr[Unit] = {
+    def impl[Case: c.WeakTypeTag, H: c.WeakTypeTag, Rep: c.WeakTypeTag, Out: c.WeakTypeTag](rep: c.Expr[Rep])(shape: c.Expr[slick.lifted.Shape[_ <: slick.lifted.ShapeLevel, Rep, H, Out]]): c.Expr[Unit] = {
       val caseType = weakTypeOf[Case]
       val hType = weakTypeOf[H]
 
-      val mg = q"""lazy val mg: _root_.net.scalax.ohNoMyShapeless.macros.OhNoMyShapelessMacros.ModelGen[${caseType.typeSymbol}] = new _root_.net.scalax.ohNoMyShapeless.macros.OhNoMyShapelessMacros.ModelGen[${caseType.typeSymbol}] {}"""
+      val mg = q"""lazy val mg: _root_.net.scalax.ohNoMySlick.macros.OhNoMySlickMacros.ModelGen[${caseType.typeSymbol}] = new _root_.net.scalax.ohNoMySlick.macros.OhNoMySlickMacros.ModelGen[${caseType.typeSymbol}] {}"""
 
       val members = caseType.members.filter(_.asTerm.isCaseAccessor).map(_.name.toString.trim).toList.reverse.distinct
 
@@ -89,10 +95,10 @@ object OhNoMyShapelessMacros {
             @_root_.scala.annotation.implicitNotFound(msg = ${Literal(Constant(s"Generic error:\nCase Class Type${" " * 2}: $${CaseType}\nExcept HList size: ${members.size}\nCurrent size${" " * 5}: ${index.toString}"))})
            trait ${TypeName(freshName1)}[CaseType, HListType]
            object ${TermName(freshName1)} {
-             implicit def implicit1[CaseType, HListType, Head, Tail <: _root_.shapeless.HList](implicit cv1: HListType <:< _root_.shapeless.::[Head, Tail])
+             implicit def implicit1[CaseType, HListType, Head, Tail <: _root_.slick.collection.heterogeneous.HList](implicit cv1: HListType <:< _root_.slick.collection.heterogeneous.HCons[Head, Tail])
              : ${TypeName(freshName1)}[CaseType, HListType] = new ${TypeName(freshName1)}[CaseType, HListType] { }
            }
-           def ${TermName(freshName2)}[A](a: A) = new _root_.net.scalax.ohNoMyShapeless.macros.OhNoMyShapelessMacros.ImplicitFetcher1[${TypeName(freshName1)}[${caseType}, A]] { }
+           def ${TermName(freshName2)}[A](a: A) = new _root_.net.scalax.ohNoMySlick.macros.OhNoMySlickMacros.ImplicitFetcher1[${TypeName(freshName1)}[${caseType}, A]] { }
            ${TermName(freshName2)}(${currentTail}).implicit1
          """
       }
@@ -112,8 +118,8 @@ object OhNoMyShapelessMacros {
             implicit def implicit1[CaseType, ProType, HListEleType, CodeSnippet](implicit cv1: HListEleType <:< ProType)
             : ${TypeName(freshName1)}[CaseType, ProType, HListEleType, CodeSnippet] = new ${TypeName(freshName1)}[CaseType, ProType, HListEleType, CodeSnippet] { }
           }
-          def ${TermName(freshName2)}[A, B, D, E](pro: _root_.net.scalax.ohNoMyShapeless.macros.OhNoMyShapelessMacros.PropertyType[A], item: B)(implicit cv1: _root_.net.scalax.ohNoMyShapeless.macros.OhNoMyShapelessMacros.tag.TagImplicit.TAux[B, D, E] = _root_.net.scalax.ohNoMyShapeless.macros.OhNoMyShapelessMacros.tag.TagImplicit.defaultImplicit[B, ${TypeName(traitName3)}]) = {
-            object impl extends _root_.net.scalax.ohNoMyShapeless.macros.OhNoMyShapelessMacros.ImplicitFetcher1[${TypeName(freshName1)}[${caseType}, A, D, E]]
+          def ${TermName(freshName2)}[A, B, D, E](pro: _root_.net.scalax.ohNoMySlick.macros.OhNoMySlickMacros.PropertyType[A], item: B)(implicit cv1: _root_.net.scalax.ohNoMySlick.macros.OhNoMySlickMacros.tag.TagImplicit.TAux[B, D, E] = _root_.net.scalax.ohNoMySlick.macros.OhNoMySlickMacros.tag.TagImplicit.defaultImplicit[B, ${TypeName(traitName3)}]) = {
+            object impl extends _root_.net.scalax.ohNoMySlick.macros.OhNoMySlickMacros.ImplicitFetcher1[${TypeName(freshName1)}[${caseType}, A, D, E]]
             impl
           }
           ${TermName(freshName2)}(mg(_.${TermName(name)}), ${currentTail}.head).implicit1
@@ -126,8 +132,8 @@ object OhNoMyShapelessMacros {
             $mg
             ..${members.zipWithIndex.map { case (name, index) => confirmMember(name, TermName("value"), index) }}
             ..${members.zipWithIndex.map { case (name, index) => confirmType(name, TermName("value"), index) }}
+            (): _root_.scala.Unit
           }
-          (): _root_.scala.Unit
           """)
       q
     }

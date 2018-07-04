@@ -48,7 +48,7 @@ val model = 36444L :: "sdfsfsd" :: 343 :: {
   val cc = bb.size
   cc.toLong
 } :: HNil
-ohNoMyCirce.shapelessFrom(model)[Model] //Added
+ohNoMyCirce.shapelessFrom[Model](model) //Added
 Generic[Model].from(model)
 ```
 
@@ -58,9 +58,10 @@ Error messages:
 [error] Case Class Type  : net.scalax.ohNoMyCirce.test.TestShapeless.Model
 [error] Except HList size: 5
 [error] Current size     : 4
-[error]   ohNoMyCirce.shapelessFrom(model)[Model]
+[error]   ohNoMyCirce.shapelessFrom[Model](model) //Added
 [error]                                   ^
-[error] TestShapeless.scala:17:23: type mismatch;
+[error] E:\pro\workspace\ohNoMyCirce\src\test\scala\net\scalax\ohNoMyCirce\test\
+TestShapeless.scala:17:23: type mismatch;
 [error]  found   : Long :: String :: Int :: Long :: shapeless.HNil
 [error]  required: Long :: String :: Int :: Int :: Int :: shapeless.HNil
 [error]   Generic[Model].from(model)
@@ -76,7 +77,7 @@ val model = 36444L :: "sdfsfsd" :: 343 :: {
   val cc = bb.size
   cc.toLong
 } :: 486 :: HNil
-ohNoMyCirce.shapelessFrom(model)[Model]
+ohNoMyCirce.shapelessFrom[Model](model)
 Generic[Model].from(model)
 ```
 
@@ -93,9 +94,10 @@ Error messages:
 [error] Code Snippet               :
 [error] No confirm code snippet
 [error] Error occurred in an application involving default arguments.
-[error]   ohNoMyCirce.shapelessFrom(model)[Model]
+[error]   ohNoMyCirce.shapelessFrom[Model](model)
 [error]                                   ^
-[error] TestShapeless.scala:17:23: type mismatch;
+[error] E:\pro\workspace\ohNoMyCirce\src\test\scala\net\scalax\ohNoMyCirce\test\
+TestShapeless.scala:17:23: type mismatch;
 [error]  found   : Long :: String :: Int :: Long :: Int :: shapeless.HNil
 [error]  required: Long :: String :: Int :: Int :: Int :: shapeless.HNil
 [error]   Generic[Model].from(model)
@@ -115,7 +117,7 @@ val model = 36444L :: "sdfsfsd" :: ohNoMyCirce.shapelessSnippet(343) :: ohNoMyCi
   val cc = bb.size
   cc.toLong
 } :: ohNoMyCirce.shapelessSnippet(486) :: HNil
-ohNoMyCirce.shapelessFrom(model)[Model]
+ohNoMyCirce.shapelessFrom[Model](model)
 Generic[Model].from(model)
 ```
 
@@ -136,9 +138,10 @@ Error messages:
 [error]   val cc: Int = scala.Predef.augmentString(bb).size;
 [error]   cc.toLong
 [error] }
-[error]   ohNoMyCirce.shapelessFrom(model)[Model]
+[error]   ohNoMyCirce.shapelessFrom[Model](model)
 [error]                                   ^
-[error] TestShapeless.scala:17:23: type mismatch;
+[error] E:\pro\workspace\ohNoMyCirce\src\test\scala\net\scalax\ohNoMyCirce\test\
+TestShapeless.scala:17:23: type mismatch;
 [error]  found   : Long :: String :: Int with net.scalax.ohNoMyShapeless.macros.
 OhNoMyShapelessMacros.tag.OhNoTagged[Int,343] :: Long with net.scalax.ohNoMyShap
 eless.macros.OhNoMyShapelessMacros.tag.OhNoTagged[Long,{
@@ -169,7 +172,7 @@ val model = 36444L :: "sdfsfsd" :: ohNoMyCirce.shapelessSnippet(343) :: ohNoMyCi
   val cc = bb.size
   cc.toLong.toInt
 } :: ohNoMyCirce.shapelessSnippet(486) :: HNil
-ohNoMyCirce.shapelessFrom(model)[Model]
+ohNoMyCirce.shapelessFrom[Model](model)
 Generic[Model].from(model)
 ```
 

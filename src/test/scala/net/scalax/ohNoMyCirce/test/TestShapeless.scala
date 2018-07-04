@@ -13,7 +13,7 @@ object TestShapeless {
     val cc = bb.size
     cc.toLong.toInt
   } :: ohNoMyCirce.shapelessSnippet(486) :: HNil
-  ohNoMyCirce.shapelessFrom(model)[Model]
+  ohNoMyCirce.shapelessFrom[Model](model)
   Generic[Model].from(model)
 
 }
