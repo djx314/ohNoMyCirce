@@ -60,8 +60,7 @@ Error messages:
 [error] Current size     : 4
 [error]   ohNoMyCirce.shapelessFrom[Model](model) //Added
 [error]                                   ^
-[error] E:\pro\workspace\ohNoMyCirce\src\test\scala\net\scalax\ohNoMyCirce\test\
-TestShapeless.scala:17:23: type mismatch;
+[error] TestShapeless.scala:17:23: type mismatch;
 [error]  found   : Long :: String :: Int :: Long :: shapeless.HNil
 [error]  required: Long :: String :: Int :: Int :: Int :: shapeless.HNil
 [error]   Generic[Model].from(model)
@@ -96,8 +95,7 @@ Error messages:
 [error] Error occurred in an application involving default arguments.
 [error]   ohNoMyCirce.shapelessFrom[Model](model)
 [error]                                   ^
-[error] E:\pro\workspace\ohNoMyCirce\src\test\scala\net\scalax\ohNoMyCirce\test\
-TestShapeless.scala:17:23: type mismatch;
+[error] TestShapeless.scala:17:23: type mismatch;
 [error]  found   : Long :: String :: Int :: Long :: Int :: shapeless.HNil
 [error]  required: Long :: String :: Int :: Int :: Int :: shapeless.HNil
 [error]   Generic[Model].from(model)
@@ -140,8 +138,7 @@ Error messages:
 [error] }
 [error]   ohNoMyCirce.shapelessFrom[Model](model)
 [error]                                   ^
-[error] E:\pro\workspace\ohNoMyCirce\src\test\scala\net\scalax\ohNoMyCirce\test\
-TestShapeless.scala:17:23: type mismatch;
+[error] TestShapeless.scala:17:23: type mismatch;
 [error]  found   : Long :: String :: Int with net.scalax.ohNoMyShapeless.macros.
 OhNoMyShapelessMacros.tag.OhNoTagged[Int,343] :: Long with net.scalax.ohNoMyShap
 eless.macros.OhNoMyShapelessMacros.tag.OhNoTagged[Long,{
