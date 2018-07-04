@@ -1,4 +1,4 @@
-Shapeless module
+Slick module
 ============================
 
 First import the Slick environment and create the data model.
