@@ -17,4 +17,4 @@ libraryDependencies += "net.scalax" %% "ohnomycirce" % "0.0.4"
 
 - [Circe module](./Circe.md)
 - [Shapeless module](./Shapeless.md)
-- [Shapeless module](./Slick.md)
+- [Slick module](./Slick.md)
