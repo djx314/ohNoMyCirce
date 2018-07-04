@@ -64,8 +64,7 @@ override def * = ??? // You should remove mapTo here
 
 Error messages:
 ```scala
-[error] E:\pro\workspace\ohNoMyCirce\src\test\scala\net\scalax\ohNoMyCirce\test\
-TestSlick.scala:20:33: Generic error:
+[error] TestSlick.scala:20:33: Generic error:
 [error] Case Class Type  : net.scalax.ohNoMyCirce.test.TestSlick.Model
 [error] Except HList size: 5
 [error] Current size     : 4
@@ -83,8 +82,7 @@ override def * = ??? // You should remove mapTo here
 
 Error messages:
 ```scala
-[error] E:\pro\workspace\ohNoMyCirce\src\test\scala\net\scalax\ohNoMyCirce\test\
-TestSlick.scala:20:33: Generic error:
+[error] TestSlick.scala:20:33: Generic error:
 [error] Case Class Type            :
 [error] net.scalax.ohNoMyCirce.test.TestSlick.Model
 [error] HList size                 : 5
@@ -113,8 +111,7 @@ override def * = ??? // You should remove mapTo here
 
 Error messages:
 ```scala
-[error] E:\pro\workspace\ohNoMyCirce\src\test\scala\net\scalax\ohNoMyCirce\test\
-TestSlick.scala:20:33: Generic error:
+[error] TestSlick.scala:20:33: Generic error:
 [error] Case Class Type            :
 [error] net.scalax.ohNoMyCirce.test.TestSlick.Model
 [error] HList size                 : 5
