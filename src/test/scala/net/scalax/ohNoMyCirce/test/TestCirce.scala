@@ -1,6 +1,6 @@
 package net.scalax.ohNoMyCirce.test
 
-import java.util.{ Calendar, Date }
+import java.util.{Calendar, Date}
 
 import io.circe._
 import io.circe.syntax._
@@ -14,15 +14,15 @@ object TestCirce {
   val wrap: Wrap = ???
 
   implicit def i1: Encoder[Calendar] = ???
-  implicit def i2: Encoder[Date] = ???
-  ohNoMyCirce.circeEncoder[Model] //type parameter changed
+  implicit def i2: Encoder[Date]     = ???
+  ohNoMyCirce.circeEncoder[Model].count.message //type parameter changed
   wrap.asJson
 
   val json: Json = ???
 
   implicit def i3: Decoder[Calendar] = ???
-  implicit def i4: Decoder[Date] = ???
-  ohNoMyCirce.circeDecoder[Model]
+  implicit def i4: Decoder[Date]     = ???
+  ohNoMyCirce.circeDecoder[Wrap].count.message
   json.as[Wrap]
 
 }

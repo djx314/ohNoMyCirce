@@ -9,8 +9,8 @@ object TestShapeless {
 
   val model = 36444L :: "sdfsfsd" :: ohNoMyCirce.shapelessSnippet(343) :: ohNoMyCirce.shapelessSnippet {
     def testStr = "I am test string."
-    val bb = testStr
-    val cc = bb.size
+    val bb      = testStr
+    val cc      = bb.size
     cc.toLong.toInt
   } :: ohNoMyCirce.shapelessSnippet(486) :: HNil
   ohNoMyCirce.shapelessFrom[Model](model)

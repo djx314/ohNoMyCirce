@@ -10,11 +10,11 @@ object TestSlick {
 
   class ModelTable(cons: Tag) extends Table[Model](cons, "") {
 
-    def id = column[Long]("long")
-    def name = column[String]("name")
-    def age = column[Int]("age")
+    def id       = column[Long]("long")
+    def name     = column[String]("name")
+    def age      = column[Int]("age")
     def describe = column[Int]("describe")
-    def time = column[Int]("time")
+    def time     = column[Int]("time")
 
     val cols = id :: name :: age :: describe :: time :: HNil
     ohNoMyCirce.slickFrom[Model](cols)

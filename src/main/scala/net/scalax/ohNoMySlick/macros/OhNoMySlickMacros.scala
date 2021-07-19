@@ -28,7 +28,8 @@ object OhNoMySlickMacros {
 
     def apply[U] = new OhNoTagger[U]
     class OhNoTagger[U] {
-      def apply[X, R, F](t: X)(implicit shape: Shape[_ <: FlatShapeLevel, X, R, F]): MappedProjection[R Aux U, R] = ShapedValue(t, shape).<>(t => t.asInstanceOf[R Aux U], (_: R Aux U) => Option.empty[R])
+      def apply[X, R, F](t: X)(implicit shape: Shape[_ <: FlatShapeLevel, X, R, F]): MappedProjection[R Aux U, R] =
+        ShapedValue(t, shape).<>(t => t.asInstanceOf[R Aux U], (_: R Aux U) => Option.empty[R])
     }
 
     trait TagImplicit {
@@ -40,20 +41,20 @@ object OhNoMySlickMacros {
     object TagImplicit {
       type TAux[W, B, S] = TagImplicit {
         type WrapType = W
-        type Base = B
-        type Snippet = S
+        type Base     = B
+        type Snippet  = S
       }
 
       implicit def implicit1[R, U]: TAux[R Aux U, R, U] = new TagImplicit {
         type WrapType = R Aux U
-        type Base = R
-        type Snippet = U
+        type Base     = R
+        type Snippet  = U
       }
 
       def defaultImplicit[R, NotConfirm]: TAux[R, R, NotConfirm] = new TagImplicit {
         type WrapType = R
-        type Base = R
-        type Snippet = NotConfirm
+        type Base     = R
+        type Snippet  = NotConfirm
       }
 
     }
@@ -77,11 +78,14 @@ object OhNoMySlickMacros {
 
     import c.universe._
 
-    def impl[Case: c.WeakTypeTag, H: c.WeakTypeTag, Rep: c.WeakTypeTag, Out: c.WeakTypeTag](rep: c.Expr[Rep])(shape: c.Expr[slick.lifted.Shape[_ <: slick.lifted.ShapeLevel, Rep, H, Out]]): c.Expr[Unit] = {
+    def impl[Case: c.WeakTypeTag, H: c.WeakTypeTag, Rep: c.WeakTypeTag, Out: c.WeakTypeTag](
+      rep: c.Expr[Rep]
+    )(shape: c.Expr[slick.lifted.Shape[_ <: slick.lifted.ShapeLevel, Rep, H, Out]]): c.Expr[Unit] = {
       val caseType = weakTypeOf[Case]
-      val hType = weakTypeOf[H]
+      val hType    = weakTypeOf[H]
 
-      val mg = q"""lazy val mg: _root_.net.scalax.ohNoMySlick.macros.OhNoMySlickMacros.ModelGen[${caseType.typeSymbol}] = new _root_.net.scalax.ohNoMySlick.macros.OhNoMySlickMacros.ModelGen[${caseType.typeSymbol}] {}"""
+      val mg =
+        q"""lazy val mg: _root_.net.scalax.ohNoMySlick.macros.OhNoMySlickMacros.ModelGen[${caseType.typeSymbol}] = new _root_.net.scalax.ohNoMySlick.macros.OhNoMySlickMacros.ModelGen[${caseType.typeSymbol}] {}"""
 
       val members = caseType.members.filter(_.asTerm.isCaseAccessor).map(_.name.toString.trim).toList.reverse.distinct
 
@@ -92,13 +96,19 @@ object OhNoMySlickMacros {
           q"""$v.tail"""
         }
         q"""
-            @_root_.scala.annotation.implicitNotFound(msg = ${Literal(Constant(s"Generic error:\nCase Class Type${" " * 2}: $${CaseType}\nExcept HList size: ${members.size}\nCurrent size${" " * 5}: ${index.toString}"))})
+            @_root_.scala.annotation.implicitNotFound(msg = ${Literal(
+          Constant(
+            s"Generic error:\nCase Class Type${" " * 2}: $${CaseType}\nExcept HList size: ${members.size}\nCurrent size${" " * 5}: ${index.toString}"
+          )
+        )})
            trait ${TypeName(freshName1)}[CaseType, HListType]
            object ${TermName(freshName1)} {
              implicit def implicit1[CaseType, HListType, Head, Tail <: _root_.slick.collection.heterogeneous.HList](implicit cv1: HListType <:< _root_.slick.collection.heterogeneous.HCons[Head, Tail])
              : ${TypeName(freshName1)}[CaseType, HListType] = new ${TypeName(freshName1)}[CaseType, HListType] { }
            }
-           def ${TermName(freshName2)}[A](a: A) = new _root_.net.scalax.ohNoMySlick.macros.OhNoMySlickMacros.ImplicitFetcher1[${TypeName(freshName1)}[${caseType}, A]] { }
+           def ${TermName(freshName2)}[A](a: A) = new _root_.net.scalax.ohNoMySlick.macros.OhNoMySlickMacros.ImplicitFetcher1[${TypeName(
+          freshName1
+        )}[${caseType}, A]] { }
            ${TermName(freshName2)}(${currentTail}).implicit1
          """
       }
@@ -112,13 +122,21 @@ object OhNoMySlickMacros {
         }
         q"""
           trait ${TypeName(traitName3)}
-          @_root_.scala.annotation.implicitNotFound(msg = ${Literal(Constant(s"Generic error:\nCase Class Type${" " * 12}:\n$${CaseType}\nHList size${" " * 17}: ${members.size}\nElement index(0 base)${" " * 6}: ${index.toString}\nExpect Property Type${" " * 7}: $${ProType}\nProperty Name${" " * 14}: ${name}\nNot Confirm HList Item Type: $${HListEleType}\nCode Snippet${" " * 15}:\n$${CodeSnippet}"))})
+          @_root_.scala.annotation.implicitNotFound(msg = ${Literal(
+          Constant(
+            s"Generic error:\nCase Class Type${" " * 12}:\n$${CaseType}\nHList size${" " * 17}: ${members.size}\nElement index(0 base)${" " * 6}: ${index.toString}\nExpect Property Type${" " * 7}: $${ProType}\nProperty Name${" " * 14}: ${name}\nNot Confirm HList Item Type: $${HListEleType}\nCode Snippet${" " * 15}:\n$${CodeSnippet}"
+          )
+        )})
           trait ${TypeName(freshName1)}[CaseType, ProType, HListEleType, CodeSnippet]
           object ${TermName(freshName1)} {
             implicit def implicit1[CaseType, ProType, HListEleType, CodeSnippet](implicit cv1: HListEleType <:< ProType)
             : ${TypeName(freshName1)}[CaseType, ProType, HListEleType, CodeSnippet] = new ${TypeName(freshName1)}[CaseType, ProType, HListEleType, CodeSnippet] { }
           }
-          def ${TermName(freshName2)}[A, B, D, E](pro: _root_.net.scalax.ohNoMySlick.macros.OhNoMySlickMacros.PropertyType[A], item: B)(implicit cv1: _root_.net.scalax.ohNoMySlick.macros.OhNoMySlickMacros.tag.TagImplicit.TAux[B, D, E] = _root_.net.scalax.ohNoMySlick.macros.OhNoMySlickMacros.tag.TagImplicit.defaultImplicit[B, ${TypeName(traitName3)}]) = {
+          def ${TermName(
+          freshName2
+        )}[A, B, D, E](pro: _root_.net.scalax.ohNoMySlick.macros.OhNoMySlickMacros.PropertyType[A], item: B)(implicit cv1: _root_.net.scalax.ohNoMySlick.macros.OhNoMySlickMacros.tag.TagImplicit.TAux[B, D, E] = _root_.net.scalax.ohNoMySlick.macros.OhNoMySlickMacros.tag.TagImplicit.defaultImplicit[B, ${TypeName(
+          traitName3
+        )}]) = {
             object impl extends _root_.net.scalax.ohNoMySlick.macros.OhNoMySlickMacros.ImplicitFetcher1[${TypeName(freshName1)}[${caseType}, A, D, E]]
             impl
           }
@@ -126,8 +144,7 @@ object OhNoMySlickMacros {
          """
       }
 
-      val q = c.Expr[Unit](
-        q"""
+      val q = c.Expr[Unit](q"""
             { (value: ${hType}) =>
             $mg
             ..${members.zipWithIndex.map { case (name, index) => confirmMember(name, TermName("value"), index) }}
