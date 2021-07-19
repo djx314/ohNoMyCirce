@@ -1,9 +1,6 @@
 package net.scalax.ohNoMyCirce.confirm
 
-import io.circe.Encoder
 import shapeless._
-
-import scala.annotation.implicitNotFound
 
 object OhNoMyCirceConfirm {
 
