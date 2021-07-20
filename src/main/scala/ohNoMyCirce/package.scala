@@ -1,6 +1,3 @@
-import io.circe.{Decoder, Encoder}
-import net.scalax.ohNoMyCirce.confirm.OhNoMyCirceConfirm
-import net.scalax.ohNoMyCirce.confirm.OhNoMyCirceConfirm.DebugFastFail
 import net.scalax.ohNoMyShapeless.macros.OhNoMyShapelessMacros
 import net.scalax.ohNoMySlick.macros.OhNoMySlickMacros
 import slick.lifted.{FlatShapeLevel, MappedProjection, Shape, ShapeLevel}
@@ -8,9 +5,6 @@ import slick.lifted.{FlatShapeLevel, MappedProjection, Shape, ShapeLevel}
 import scala.language.experimental.macros
 
 package object ohNoMyCirce {
-
-  def circeEncoder[T]: DebugFastFail[Encoder, T] = OhNoMyCirceConfirm.debugFastFail[Encoder, T]
-  def circeDecoder[T]: DebugFastFail[Decoder, T] = OhNoMyCirceConfirm.debugFastFail[Decoder, T]
 
   trait ShapelessFromApply[Case] {
     def apply[H](hlist: H): Unit = macro OhNoMyShapelessMacros.OhNoMyShapelessMacrosImpl.impl[Case, H]
