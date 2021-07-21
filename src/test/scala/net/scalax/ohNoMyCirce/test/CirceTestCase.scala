@@ -6,23 +6,18 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
 import java.io.{PrintWriter, StringWriter}
-import scala.tools.nsc.Settings
-import scala.tools.nsc.interpreter.IMain
-import scala.tools.nsc.interpreter.shell.ReplReporterImpl
 import scala.util.Using
 
 case class CirceTestModel(id: Long, name: String, age: Int, describe: String, time: Date)
 case class CirceTestContent(t: () => Json)
 
 class CirceTestCase extends AnyWordSpec with Matchers {
-  val settings = new Settings
-  settings.usejavacp.value = true
 
   "DebugFastFail" should {
     "compile success when each field has encoder" in {
       Using.resource(new StringWriter()) { sw =>
         Using.resource(new PrintWriter(sw)) { pw =>
-          Using.resource(new IMain(settings, new ReplReporterImpl(settings, pw))) { eval =>
+          Using.resource(GetIMain(pw)) { eval =>
             val code =
               """
                 |import io.circe._
@@ -48,7 +43,7 @@ class CirceTestCase extends AnyWordSpec with Matchers {
     "compile failed when some field has no Encoder" in {
       Using.resource(new StringWriter()) { sw =>
         Using.resource(new PrintWriter(sw)) { pw =>
-          Using.resource(new IMain(settings, new ReplReporterImpl(settings, pw))) { eval =>
+          Using.resource(GetIMain(pw)) { eval =>
             val code =
               """
               |import io.circe._
@@ -80,7 +75,7 @@ class CirceTestCase extends AnyWordSpec with Matchers {
     "compile failed when some field has no Decoder" in {
       Using.resource(new StringWriter()) { sw =>
         Using.resource(new PrintWriter(sw)) { pw =>
-          Using.resource(new IMain(settings, new ReplReporterImpl(settings, pw))) { eval =>
+          Using.resource(GetIMain(pw)) { eval =>
             val code =
               """
                 |import io.circe._
