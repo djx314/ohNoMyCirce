@@ -17,7 +17,7 @@ class CirceTestCase extends AnyWordSpec with Matchers {
     "compile success when each field has encoder" in {
       Using.resource(new StringWriter()) { sw =>
         Using.resource(new PrintWriter(sw)) { pw =>
-          Using.resource(GetIMain(pw)) { eval =>
+          Using.resource(GetInterpreter(pw)) { interpreter =>
             val code =
               """
                 |import io.circe._
@@ -31,19 +31,20 @@ class CirceTestCase extends AnyWordSpec with Matchers {
                 |val result = CirceTestContent(() => model.asJson)
                 |""".stripMargin
 
-            eval.interpret(code)
-            val result = eval.valueOfTerm("result")
+            interpreter.interpret(code)
+            val result = interpreter.valueOfTerm("result")
             result.isEmpty shouldBe false
             result.get.isInstanceOf[CirceTestContent] shouldBe true
+            true
           }
         }
-      }
+      }: Boolean
     }
 
     "compile failed when some field has no Encoder" in {
       Using.resource(new StringWriter()) { sw =>
         Using.resource(new PrintWriter(sw)) { pw =>
-          Using.resource(GetIMain(pw)) { eval =>
+          Using.resource(GetInterpreter(pw)) { interpreter =>
             val code =
               """
               |import io.circe._
@@ -63,19 +64,20 @@ class CirceTestCase extends AnyWordSpec with Matchers {
               |val result = CirceTestContent(() => model.asJson)
               |""".stripMargin
 
-            eval.interpret(code)
-            val result = eval.valueOfTerm("result")
+            interpreter.interpret(code)
+            val result = interpreter.valueOfTerm("result")
             result.isEmpty shouldBe true
             sw.toString should include("could not find implicit value for parameter encoder: io.circe.Encoder[java.util.Date]")
+            true
           }
         }
-      }
+      }: Boolean
     }
 
     "compile failed when some field has no Decoder" in {
       Using.resource(new StringWriter()) { sw =>
         Using.resource(new PrintWriter(sw)) { pw =>
-          Using.resource(GetIMain(pw)) { eval =>
+          Using.resource(GetInterpreter(pw)) { interpreter =>
             val code =
               """
                 |import io.circe._
@@ -90,11 +92,12 @@ class CirceTestCase extends AnyWordSpec with Matchers {
                 |debugFastFail[CirceTestModel].count.message
                 |""".stripMargin
 
-            eval.interpret(code)
+            interpreter.interpret(code)
             sw.toString should include("could not find implicit value for parameter encoder: io.circe.Decoder[java.util.Date]")
+            true
           }
         }
-      }
+      }: Boolean
     }
 
   }

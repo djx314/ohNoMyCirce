@@ -5,7 +5,7 @@ import scala.tools.nsc.Settings
 import scala.tools.nsc.interpreter.IMain
 import scala.tools.nsc.interpreter.shell.ReplReporterImpl
 
-object GetIMain {
+object GetInterpreter {
   def apply(printlnWriter: PrintWriter): IMain = {
     val settings = new Settings
     settings.usejavacp.value = true
