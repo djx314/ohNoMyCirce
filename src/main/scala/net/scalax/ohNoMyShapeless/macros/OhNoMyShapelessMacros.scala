@@ -97,7 +97,9 @@ object OhNoMyShapelessMacros {
              implicit def implicit1[CaseType, HListType, Head, Tail <: _root_.shapeless.HList](implicit cv1: HListType <:< _root_.shapeless.::[Head, Tail])
              : ${TypeName(freshName1)}[CaseType, HListType] = new ${TypeName(freshName1)}[CaseType, HListType] { }
            }
-           def ${TermName(freshName2)}[A](a: A) = new _root_.net.scalax.ohNoMyShapeless.macros.OhNoMyShapelessMacros.ImplicitFetcher1[${TypeName(
+           def ${TermName(
+          freshName2
+        )}[A](a: A) = new _root_.net.scalax.ohNoMyShapeless.macros.OhNoMyShapelessMacros.ImplicitFetcher1[${TypeName(
           freshName1
         )}[${caseType}, A]] { }
            ${TermName(freshName2)}(${currentTail}).implicit1

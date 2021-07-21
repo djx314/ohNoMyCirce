@@ -1,5 +1,3 @@
-scalaVersion := "2.12.5"
-
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 
 val scalaVersionStr = "2.13.6"
@@ -25,10 +23,15 @@ libraryDependencies ++= Seq(
   "com.typesafe.slick" %% "slick-hikaricp" % slickVersion
 )
 
-libraryDependencies ++= Seq("org.scala-lang" % "scala-reflect" % scalaVersion.value)
+libraryDependencies ++= Seq(
+  "org.scala-lang" % "scala-reflect"  % scalaVersion.value,
+  "org.scala-lang" % "scala-compiler" % scalaVersion.value
+)
 
 lazy val ohNoMyCirce = (project in file("."))
 
 organization := "net.scalax"
 
 name := "ohNoMyCirce"
+
+run / fork := true
