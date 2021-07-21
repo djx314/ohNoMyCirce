@@ -28,10 +28,16 @@ libraryDependencies ++= Seq(
   "org.scala-lang" % "scala-compiler" % scalaVersion.value
 )
 
-lazy val ohNoMyCirce = (project in file("."))
+val scalatestVersion = "3.2.9"
+libraryDependencies ++= Seq(
+  "org.scalactic" %% "scalactic" % scalatestVersion,
+  "org.scalatest" %% "scalatest" % scalatestVersion % "test"
+)
+
+val ohNoMyCirce = project in file(".")
 
 organization := "net.scalax"
 
 name := "ohNoMyCirce"
 
-run / fork := true
+Test / fork := true
