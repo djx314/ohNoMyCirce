@@ -1,6 +1,6 @@
 package net.scalax.ohNoMyCirce.test
 
-import java.util.Date
+import java.util.Calendar
 import io.circe._
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
@@ -8,7 +8,7 @@ import org.scalatest.wordspec.AnyWordSpec
 import java.io.{PrintWriter, StringWriter}
 import scala.util.Using
 
-case class CirceTestModel(id: Long, name: String, age: Int, describe: String, time: Date)
+case class CirceTestModel(id: Long, name: String, age: Int, describe: String, time: Calendar)
 case class CirceTestContent(t: () => Json)
 
 class CirceTestCase extends AnyWordSpec with Matchers {
@@ -26,7 +26,7 @@ class CirceTestCase extends AnyWordSpec with Matchers {
                 |import net.scalax.ohNoMyCirce.test.CirceTestModel
                 |import net.scalax.ohNoMyCirce.test.CirceTestContent
                 |
-                |implicit def dateEncoder: Encoder[java.util.Date] = ???
+                |implicit def dateEncoder: Encoder[java.util.Calendar] = ???
                 |def model: CirceTestModel = ???
                 |val result = CirceTestContent(() => model.asJson)
                 |""".stripMargin
@@ -67,7 +67,7 @@ class CirceTestCase extends AnyWordSpec with Matchers {
             interpreter.interpret(code)
             val result = interpreter.valueOfTerm("result")
             result.isEmpty shouldBe true
-            sw.toString should include("could not find implicit value for parameter encoder: io.circe.Encoder[java.util.Date]")
+            sw.toString should include("could not find implicit value for parameter encoder: io.circe.Encoder[java.util.Calendar]")
             true
           }
         }
@@ -93,7 +93,34 @@ class CirceTestCase extends AnyWordSpec with Matchers {
                 |""".stripMargin
 
             interpreter.interpret(code)
-            sw.toString should include("could not find implicit value for parameter encoder: io.circe.Decoder[java.util.Date]")
+            sw.toString should include("could not find implicit value for parameter encoder: io.circe.Decoder[java.util.Calendar]")
+            true
+          }
+        }
+      }: Boolean
+    }
+
+    "works fine with play-json Format" in {
+      Using.resource(new StringWriter()) { sw =>
+        Using.resource(new PrintWriter(sw)) { pw =>
+          Using.resource(GetInterpreter(pw)) { interpreter =>
+            val code =
+              """
+                |import play.api.libs.json._
+                |import play.api.libs.functional.syntax._
+                |import net.scalax.ohNoMyCirce.test.CirceTestModel
+                |import net.scalax.ohNoMyCirce.test.CirceTestContent
+                |import net.scalax.ohNoMyCirce.confirm.OhNoMyCirceConfirm
+                |import net.scalax.ohNoMyCirce.confirm.OhNoMyCirceConfirm.DebugFastFail
+                |
+                |def debugFastFail[T]: DebugFastFail[Format, T] = OhNoMyCirceConfirm.debugFastFail[Format, T]
+                |debugFastFail[CirceTestModel].count.message
+                |""".stripMargin
+
+            interpreter.interpret(code)
+            sw.toString should include(
+              "No Json formatter found for type java.util.Calendar. Try to implement an implicit Format for this type."
+            )
             true
           }
         }

@@ -1,13 +1,14 @@
 package net.scalax.ohNoMyCirce.test
 
-import java.util.{Calendar, Date}
-import io.circe._
-import io.circe.syntax._
-import io.circe.generic.auto._
-import net.scalax.ohNoMyCirce.confirm.OhNoMyCirceConfirm
-import net.scalax.ohNoMyCirce.confirm.OhNoMyCirceConfirm.DebugFastFail
-
 object TestCirce {
+
+  import java.util.{Calendar, Date}
+  import io.circe._
+  import io.circe.syntax._
+  import io.circe.generic.auto._
+  import net.scalax.ohNoMyCirce.confirm.OhNoMyCirceConfirm
+  import net.scalax.ohNoMyCirce.confirm.OhNoMyCirceConfirm.DebugFastFail
+
   def circeEncoder[T]: DebugFastFail[Encoder, T] = OhNoMyCirceConfirm.debugFastFail[Encoder, T]
   def circeDecoder[T]: DebugFastFail[Decoder, T] = OhNoMyCirceConfirm.debugFastFail[Decoder, T]
 
