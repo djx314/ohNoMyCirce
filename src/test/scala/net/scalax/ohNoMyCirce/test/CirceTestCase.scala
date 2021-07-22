@@ -52,13 +52,12 @@ class CirceTestCase extends AnyWordSpec with Matchers {
               |import io.circe.generic.auto._
               |import net.scalax.ohNoMyCirce.test.CirceTestModel
               |import net.scalax.ohNoMyCirce.test.CirceTestContent
-              |import net.scalax.ohNoMyCirce.confirm.OhNoMyCirceConfirm
-              |import net.scalax.ohNoMyCirce.confirm.OhNoMyCirceConfirm.DebugFastFail
+              |import net.scalax.ohNoMyCirce.confirm.TypeClassDebugger
               |
               |// implicit def calendarEncoder: Encoder[java.util.Calendar] = ???
               |
-              |def debugFastFail[T]: DebugFastFail[Encoder, T] = OhNoMyCirceConfirm.debugFastFail[Encoder, T]
-              |debugFastFail[CirceTestModel].count.message
+              |val debugger: TypeClassDebugger[Encoder] = TypeClassDebugger[Encoder]
+              |debugger.debug[CirceTestModel].count.message
               |
               |def model: CirceTestModel = ???
               |val result = CirceTestContent(() => model.asJson)
@@ -85,11 +84,10 @@ class CirceTestCase extends AnyWordSpec with Matchers {
                 |import io.circe.generic.auto._
                 |import net.scalax.ohNoMyCirce.test.CirceTestModel
                 |import net.scalax.ohNoMyCirce.test.CirceTestContent
-                |import net.scalax.ohNoMyCirce.confirm.OhNoMyCirceConfirm
-                |import net.scalax.ohNoMyCirce.confirm.OhNoMyCirceConfirm.DebugFastFail
+                |import net.scalax.ohNoMyCirce.confirm.TypeClassDebugger
                 |
-                |def debugFastFail[T]: DebugFastFail[Decoder, T] = OhNoMyCirceConfirm.debugFastFail[Decoder, T]
-                |debugFastFail[CirceTestModel].count.message
+                |val debugger: TypeClassDebugger[Decoder] = TypeClassDebugger[Decoder]
+                |debugger.debug[CirceTestModel].count.message
                 |""".stripMargin
 
             interpreter.interpret(code)
@@ -110,11 +108,10 @@ class CirceTestCase extends AnyWordSpec with Matchers {
                 |import play.api.libs.functional.syntax._
                 |import net.scalax.ohNoMyCirce.test.CirceTestModel
                 |import net.scalax.ohNoMyCirce.test.CirceTestContent
-                |import net.scalax.ohNoMyCirce.confirm.OhNoMyCirceConfirm
-                |import net.scalax.ohNoMyCirce.confirm.OhNoMyCirceConfirm.DebugFastFail
+                |import net.scalax.ohNoMyCirce.confirm.TypeClassDebugger
                 |
-                |def debugFastFail[T]: DebugFastFail[Format, T] = OhNoMyCirceConfirm.debugFastFail[Format, T]
-                |debugFastFail[CirceTestModel].count.message
+                |val debugger: TypeClassDebugger[Format] = TypeClassDebugger[Format]
+                |debugger.debug[CirceTestModel].count.message
                 |""".stripMargin
 
             interpreter.interpret(code)

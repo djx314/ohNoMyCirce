@@ -45,22 +45,22 @@ And then start debugging.
 ```scala
 val wrap: Wrap = ???
 
-def circeEncoder[T]: DebugFastFail[Encoder, T] = OhNoMyCirceConfirm.debugFastFail[Encoder, T]
-circeEncoder[Wrap].count.message
+val encoderDebugger: TypeClassDebugger[Encoder] = TypeClassDebugger[Encoder]
+encoderDebugger.debug[Wrap].count.message
 
 wrap.asJson
 ```
 
 Error messages:
 ```scala
-[info] compiling 1 Scala source to E:\pro\workspace\ohNoMyCirce\target\scala-2.13\test-classes ...
-[error] E:\pro\workspace\ohNoMyCirce\src\test\scala\net\scalax\ohNoMyCirce\test\TestCirce.scala:21:28: could not find implicit value for parameter encoder: io.circe.Encoder[java.util.Calendar]
-[error]   circeEncoder[Wrap].count.message
-[error]                            ^
-[error] E:\pro\workspace\ohNoMyCirce\src\test\scala\net\scalax\ohNoMyCirce\test\TestCirce.scala:23:8: could not find implicit value for parameter encoder: io.circe.Encoder[net.scalax.ohNoMyCirce.test.TestCirce.Wrap]
+[error] E:\pro\workspace\ohNoMyCirce\src\test\scala\net\scalax\ohNoMyCirce\test\TestJson.scala:22:37: could not find implicit value for parameter encoder: io.circe.Encoder[java.util.Calendar]
+[error]   encoderDebugger.debug[Wrap].count.message
+[error]                                     ^
+[error] E:\pro\workspace\ohNoMyCirce\src\test\scala\net\scalax\ohNoMyCirce\test\TestJson.scala:24:8: could not find implicit value for parameter encoder: io.circe.Encoder[net.scalax.ohNoMyCirce.test.TestCirce.Wrap]
 [error]   wrap.asJson
 [error]        ^
 [error] two errors found
+[error] (Test / compileIncremental) Compilation failed
 ```
 
 Next:
@@ -68,22 +68,22 @@ Next:
 val wrap: Wrap = ???
 implicit def i1: Encoder[Calendar] = ???
 
-def circeEncoder[T]: DebugFastFail[Encoder, T] = OhNoMyCirceConfirm.debugFastFail[Encoder, T]
-circeEncoder[Wrap].count.message
+val encoderDebugger: TypeClassDebugger[Encoder] = TypeClassDebugger[Encoder]
+encoderDebugger.debug[Wrap].count.message
 
 wrap.asJson
 ```
 
 Error messages:
 ```scala
-[info] compiling 1 Scala source to E:\pro\workspace\ohNoMyCirce\target\scala-2.13\test-classes ...
-[error] E:\pro\workspace\ohNoMyCirce\src\test\scala\net\scalax\ohNoMyCirce\test\TestCirce.scala:21:28: could not find implicit value for parameter encoder: io.circe.Encoder[net.scalax.ohNoMyCirce.test.TestCirce.Model]
-[error]   circeEncoder[Wrap].count.message
-[error]                            ^
-[error] E:\pro\workspace\ohNoMyCirce\src\test\scala\net\scalax\ohNoMyCirce\test\TestCirce.scala:23:8: could not find implicit value for parameter encoder: io.circe.Encoder[net.scalax.ohNoMyCirce.test.TestCirce.Wrap]
+[error] E:\pro\workspace\ohNoMyCirce\src\test\scala\net\scalax\ohNoMyCirce\test\TestJson.scala:22:37: could not find implicit value for parameter encoder: io.circe.Encoder[net.scalax.ohNoMyCirce.test.TestCirce.Model]
+[error]   encoderDebugger.debug[Wrap].count.message
+[error]                                     ^
+[error] E:\pro\workspace\ohNoMyCirce\src\test\scala\net\scalax\ohNoMyCirce\test\TestJson.scala:24:8: could not find implicit value for parameter encoder: io.circe.Encoder[net.scalax.ohNoMyCirce.test.TestCirce.Wrap]
 [error]   wrap.asJson
 [error]        ^
 [error] two errors found
+[error] (Test / compileIncremental) Compilation failed
 ```
 
 Next:
@@ -91,22 +91,22 @@ Next:
 val wrap: Wrap = ???
 implicit def i1: Encoder[Calendar] = ???
 
-def circeEncoder[T]: DebugFastFail[Encoder, T] = OhNoMyCirceConfirm.debugFastFail[Encoder, T]
-circeEncoder[Model].count.message //type parameter changed
+val encoderDebugger: TypeClassDebugger[Encoder] = TypeClassDebugger[Encoder]
+encoderDebugger.debug[Model].count.message //type parameter changed
 
 wrap.asJson
 ```
 
 Error messages:
 ```scala
-[info] compiling 1 Scala source to E:\pro\workspace\ohNoMyCirce\target\scala-2.13\test-classes ...
-[error] E:\pro\workspace\ohNoMyCirce\src\test\scala\net\scalax\ohNoMyCirce\test\TestCirce.scala:21:29: could not find implicit value for parameter encoder: io.circe.Encoder[java.util.Date]
-[error]   circeEncoder[Model].count.message
-[error]                             ^
-[error] E:\pro\workspace\ohNoMyCirce\src\test\scala\net\scalax\ohNoMyCirce\test\TestCirce.scala:22:8: could not find implicit value for parameter encoder: io.circe.Encoder[net.scalax.ohNoMyCirce.test.TestCirce.Wrap]
+[error] E:\pro\workspace\ohNoMyCirce\src\test\scala\net\scalax\ohNoMyCirce\test\TestJson.scala:23:38: could not find implicit value for parameter encoder: io.circe.Encoder[java.util.Date]
+[error]   encoderDebugger.debug[Model].count.message
+[error]                                      ^
+[error] E:\pro\workspace\ohNoMyCirce\src\test\scala\net\scalax\ohNoMyCirce\test\TestJson.scala:24:8: could not find implicit value for parameter encoder: io.circe.Encoder[net.scalax.ohNoMyCirce.test.TestCirce.Wrap]
 [error]   wrap.asJson
 [error]        ^
 [error] two errors found
+[error] (Test / compileIncremental) Compilation failed
 ```
 
 Next:
@@ -115,8 +115,8 @@ val wrap: Wrap = ???
 implicit def i1: Encoder[Calendar] = ???
 implicit def i2: Encoder[Date] = ???
 
-def circeEncoder[T]: DebugFastFail[Encoder, T] = OhNoMyCirceConfirm.debugFastFail[Encoder, T]
-circeEncoder[Model].count.message //type parameter changed
+val encoderDebugger: TypeClassDebugger[Encoder] = TypeClassDebugger[Encoder]
+encoderDebugger.debug[Model].count.message //type parameter changed
 
 wrap.asJson
 ```
@@ -130,14 +130,14 @@ Remove the debug code.
 
 By changing
 ```scala
-def circeEncoder[T]: DebugFastFail[Encoder, T] = OhNoMyCirceConfirm.debugFastFail[Encoder, T]
+val encoderDebugger: TypeClassDebugger[Encoder] = TypeClassDebugger[Encoder]
 ```
 to
 ```scala
-def circeDecoder[T]: DebugFastFail[Decoder, T] = OhNoMyCirceConfirm.debugFastFail[Decoder, T]
+val decoderDebugger: TypeClassDebugger[Decoder] = TypeClassDebugger[Decoder]
 ```
 you can debug `io.circe.Decoder` similarly.
 
 Yes, it can debug `play-json` and many other type class based case class generic.
 
-The final version of the code above is [here](./src/test/scala/net/scalax/ohNoMyCirce/test/TestCirce.scala).
+The final version of the code above is [here](./src/test/scala/net/scalax/ohNoMyCirce/test/TestJson.scala).
