@@ -26,7 +26,7 @@ class CirceTestCase extends AnyWordSpec with Matchers {
                 |import net.scalax.ohNoMyCirce.test.CirceTestModel
                 |import net.scalax.ohNoMyCirce.test.CirceTestContent
                 |
-                |implicit def dateEncoder: Encoder[java.util.Calendar] = ???
+                |implicit def calendarEncoder: Encoder[java.util.Calendar] = ???
                 |def model: CirceTestModel = ???
                 |val result = CirceTestContent(() => model.asJson)
                 |""".stripMargin
@@ -55,7 +55,7 @@ class CirceTestCase extends AnyWordSpec with Matchers {
               |import net.scalax.ohNoMyCirce.confirm.OhNoMyCirceConfirm
               |import net.scalax.ohNoMyCirce.confirm.OhNoMyCirceConfirm.DebugFastFail
               |
-              |// implicit def dateEncoder: Encoder[java.util.Date] = ???
+              |// implicit def calendarEncoder: Encoder[java.util.Calendar] = ???
               |
               |def debugFastFail[T]: DebugFastFail[Encoder, T] = OhNoMyCirceConfirm.debugFastFail[Encoder, T]
               |debugFastFail[CirceTestModel].count.message
